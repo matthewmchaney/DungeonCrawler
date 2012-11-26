@@ -455,16 +455,17 @@ namespace DungeonCrawler
                     // Update game systems
                     InputSystem.Update(elapsedTime);
                     NetworkSystem.Update(elapsedTime);
-                    MovementSystem.Update(elapsedTime);
                     WeaponSystem.Update(elapsedTime);
                     SkillSystem.Update(elapsedTime);
                     LevelManager.Update(elapsedTime);
-                    CollisionSystem.Update(elapsedTime);
                     QuestLogSystem.Update(elapsedTime);
 		            SpriteAnimationSystem.Update(elapsedTime);
                     NpcAISystem.Update(elapsedTime);
                     EnemyAISystem.Update(elapsedTime);
                     TextSystem.Update(elapsedTime);
+
+                    MovementSystem.Update(elapsedTime);
+                    CollisionSystem.Update(elapsedTime);
 
                     GarbagemanSystem.Update(elapsedTime);
                     break;
