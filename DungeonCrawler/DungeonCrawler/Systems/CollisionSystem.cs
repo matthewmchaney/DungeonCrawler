@@ -75,6 +75,7 @@ namespace DungeonCrawler.Systems
 
             NPCStatic = 0x201,
             NPCPlayer = 0x202,
+            NPCEnemy  = 0x204,
             NPCDoor=0x220,
            
         }
@@ -232,7 +233,9 @@ namespace DungeonCrawler.Systems
                             case CollisionType.NPCDoor:
                                 NPCDoorCollision(collideablesInRoom[i].EntityID, collideablesInRoom[j].EntityID);
                                 break;
-
+                            case CollisionType.NPCEnemy:
+                                NPCEnemyCollision(collideablesInRoom[i].EntityID, collideablesInRoom[j].EntityID);
+                                break;
                         }
                     }
                 }
@@ -485,6 +488,16 @@ namespace DungeonCrawler.Systems
         }
 
         /// <summary>
+        /// Handles NPC/Player collisions.
+        /// </summary>
+        /// <param name="p">First entityID</param>
+        /// <param name="p_2">Second entityID</param>
+        private void NPCEnemyCollision(uint p, uint p_2)
+        {
+            HandleDynamicDynamic(p, p_2);
+        }
+
+        /// <summary>
         /// Handles NPC/Static collisions.
         /// </summary>
         /// <param name="p">First entityID</param>
@@ -629,7 +642,6 @@ namespace DungeonCrawler.Systems
             if (!enemy.HurtOnTouch && !moving)
             {
                 //Stationary & Painless
-                //Act like a static
                 HandleStaticDynamic(enemyId, playerId);
             }
             else if (enemy.HurtOnTouch && !moving)
@@ -836,7 +848,7 @@ namespace DungeonCrawler.Systems
                 pos2.Center = new Vector2((float)x, (float)y);
 
                 //Now determine the pushback from the movement
-                Vector2 dMove = (mov1.Direction * mov1.Speed + mov2.Direction * mov2.Speed) / 2;
+                /*Vector2 dMove = (mov1.Direction * mov1.Speed + mov2.Direction * mov2.Speed) / 2;
                 double moveAngle = Math.Atan2(dMove.Y, dMove.X);
 
                 double dAngle = moveAngle - angle;
@@ -847,7 +859,7 @@ namespace DungeonCrawler.Systems
 
                 pos1.Center += dMove * (float)moveDistance;
                 pos2.Center += dMove * (float)moveDistance;
-
+                */
                 _game.PositionComponent[dID1] = pos1;
                 _game.PositionComponent[dID2] = pos2;
 
